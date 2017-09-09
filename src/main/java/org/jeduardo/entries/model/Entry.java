@@ -1,5 +1,7 @@
 package org.jeduardo.entries.model;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+
 import javax.persistence.*;
 
 @Entity
@@ -42,5 +44,10 @@ public class Entry {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Override
+    public String toString() {
+        return ReflectionToStringBuilder.toString(this);
     }
 }

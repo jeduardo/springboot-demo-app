@@ -1,21 +1,24 @@
 package org.jeduardo.entries.controller;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.jeduardo.entries.data.EntryRepository;
 import org.jeduardo.entries.exception.ResourceNotFoundException;
 import org.jeduardo.entries.model.Entry;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class EntryController {
+    private final static Logger LOGGER = LogManager.getLogger(EntryController.class);
 
     @Autowired
     private EntryRepository entryRepository;
 
     @RequestMapping(value = "/api/v1/status", method = RequestMethod.GET, produces = "application/json")
+    @ResponseBody
     public String status() {
-        return JSONObject.quote("OK");
+        return "OK";
     }
 
     @RequestMapping(value = "/api/v1/entries", method = RequestMethod.GET, produces = "application/json")
@@ -29,8 +32,10 @@ public class EntryController {
     public Entry list(@PathVariable("id") long id) {
         Entry entry = entryRepository.findOne(id);
         if (entry != null) {
+            LOGGER.info(String.format("Entry found: %s", entry));
             return entry;
         } else {
+            LOGGER.info(String.format("Entry not found for id: %d", entry));
             throw new ResourceNotFoundException("Entry not found");
         }
     }
@@ -49,10 +54,12 @@ public class EntryController {
     public Entry update(@PathVariable("id") long id, @RequestBody Entry entry) {
         Entry targetEntry = entryRepository.findOne(id);
         if (targetEntry != null) {
+            LOGGER.info(String.format("Entry found: %s", entry));
             targetEntry.setContent(entry.getContent());
             targetEntry.setDescription(entry.getDescription());
             return entryRepository.save(targetEntry);
         } else {
+            LOGGER.info(String.format("Entry not found for id: %d", id));
             throw new ResourceNotFoundException("Entry not found");
         }
     }
@@ -65,6 +72,7 @@ public class EntryController {
             entryRepository.delete(targetEntry);
             return targetEntry;
         } else {
+            LOGGER.info(String.format("Entry not found for id: %d", id));
             throw new ResourceNotFoundException("Entry not found");
         }
     }
