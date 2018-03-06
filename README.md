@@ -36,6 +36,19 @@ The following environment variables can be configured:
 * APP_LOG_LEVEL (optional): allows configuring the application log level. If it is
 not specified, the default log level will be INFO.
 
+## Database migration
+
+Before running the application, the database must be setup. There are built-in migration
+scripts with Flyway to accomplish this. In order to run this, the following maven command
+must be executed:
+
+```ShellSession
+$ export APP_DATABASE_USER=pxdtwhsbazfwdr
+$ export APP_DATABASE_PASSWORD=fc06ba6b5f75e0c1ab303eb26a1332315ee53c0314b9ff34dcbbe7cc0b21005f
+$ export APP_DATABASE_URL='jdbc:postgresql://ec2-54-247-189-64.eu-west-1.compute.amazonaws.com:5432/da8s86ph6ufuq7?ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory'
+$ mvn flyway:migrate
+```
+
 ## Deployment
 
 All requirements for the application are specified in the `pom.xml` file.
