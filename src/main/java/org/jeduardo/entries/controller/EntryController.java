@@ -29,7 +29,7 @@ public class EntryController {
 
     @RequestMapping(value = "/api/v1/entries/{id}", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
-    public Entry list(@PathVariable("id") long id) {
+    public Entry list(@PathVariable("id") int id) {
         Entry entry = entryRepository.findOne(id);
         if (entry != null) {
             LOGGER.info(String.format("Entry found: %s", entry));
@@ -51,7 +51,7 @@ public class EntryController {
 
     @RequestMapping(value = "/api/v1/entries/{id}", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
     @ResponseBody
-    public Entry update(@PathVariable("id") long id, @RequestBody Entry entry) {
+    public Entry update(@PathVariable("id") int id, @RequestBody Entry entry) {
         Entry targetEntry = entryRepository.findOne(id);
         if (targetEntry != null) {
             LOGGER.info(String.format("Entry found: %s", entry));
@@ -66,7 +66,7 @@ public class EntryController {
 
     @RequestMapping(value = "/api/v1/entries/{id}", method = RequestMethod.DELETE, produces = "application/json")
     @ResponseBody
-    public Entry delete(@PathVariable("id") long id) {
+    public Entry delete(@PathVariable("id") int id) {
         Entry targetEntry = entryRepository.findOne(id);
         if (targetEntry != null) {
             entryRepository.delete(targetEntry);
