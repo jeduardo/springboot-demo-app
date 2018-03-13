@@ -16,10 +16,11 @@ of non-trivial applications. It is a Java version of the [flask-demo-app](https:
 The only model defined for the application is the model of an `Entry`.
 
 An `Entry` is composed by the following fields:
-	* id: unique identifier for an entry. This field is generated automatically
-	and	cannot be modified.
-	* description: a description for the `Entry`.
-	* comment: a comment over the `Entry`.
+
+* id: unique identifier for an entry. This field is generated automatically
+and	cannot be modified.
+* description: a description for the `Entry`.
+* comment: a comment over the `Entry`.
 
 ## Configuration
 
