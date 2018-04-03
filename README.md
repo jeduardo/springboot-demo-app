@@ -26,16 +26,22 @@ and	cannot be modified.
 
 The following environment variables can be configured:
 
-* APP_DATABASE_URL (mandatory): points to the backing database.
+* APP_DATABASE_URL (mandatory): points to the backing database
+
 * APP_DATABASE_USER (mandatory): holds the database user
+
 * APP_DATABASE_PASSWORD (mandatory): holds the database password
+
 * APP_DATABASE_SCHEMA (mandatory): specify what the persistence layer should do with the schema during the boot according to the options:
     * none: nothing is done
     * validate: schema is validated during initialization time
     * create: schema is reset during initialization time
     * update: schema is updated during initialization time
+
 * APP_LOG_LEVEL (optional): allows configuring the application log level. If it is
 not specified, the default log level will be INFO.
+
+* APP_FLYWAY_ENABLED (optional): whether Flyway-based migrations should be executed during boot. If left out, it will be enabled by default.
 
 ## Database migration
 
