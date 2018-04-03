@@ -2,7 +2,8 @@
 <Configuration status="WARN">
     <Appenders>
         <Console name="Console" target="SYSTEM_OUT">
-            <JSONLayout complete="true" properties="true" compact="false"/>
+            <PatternLayout pattern="%d [%t] %-5level %logger{36} - %msg%n%throwable"/>
+            <!--JSONLayout complete="true" properties="true" compact="false"/-->
         </Console>
     </Appenders>
     <Loggers>
