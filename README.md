@@ -43,6 +43,9 @@ not specified, the default log level will be INFO.
 
 * APP_FLYWAY_ENABLED (optional): whether Flyway-based migrations should be executed during boot. If left out, it will be enabled by default.
 
+*Note: If no database configuration is specified, the application will start on a single-shot execution mode using a memory-backed database that will be erased when it is stopped.*
+
+
 ## Database migration
 
 Before running the application, the database must be setup. There are built-in migration
