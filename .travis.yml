@@ -6,7 +6,7 @@ jdk:
 before_deploy:
   - mvn help:evaluate -Dexpression=project.version 2>/dev/null
   - ls -l *.json
-  - VERSION=$(mvn help:evaluate -Dexpression=project.version 2>/dev/null | grep -v '\[') sed -i "s/@VERSION@/$VERSION/g" descriptor.json
+  - sed -i "s/@VERSION@/$(mvn help:evaluate -Dexpression=project.version 2>/dev/null | grep -v '\[')/g" descriptor.json
 
 deploy:
   provider: bintray
