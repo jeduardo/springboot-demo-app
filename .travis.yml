@@ -6,7 +6,6 @@ jdk:
 before_deploy:
   - mvn help:evaluate -Dexpression=project.version 2>/dev/null
   - ls -l *.json
-  - mvn release:prepare
   - ls target/*
   - sed -i "s/@VERSION@/$(mvn help:evaluate -Dexpression=project.version 2>/dev/null | grep -v '\[')/g" descriptor.json
 
