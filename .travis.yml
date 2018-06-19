@@ -2,6 +2,10 @@ language: java
 script: mvn install
 jdk:
 - oraclejdk8
+
+before_deploy:
+  - VERSION=$(mvn help:evaluate -Dexpression=project.version | grep -v '\[') sed -i "s/@VERSION@/$VERSION/g" descriptor.json
+
 deploy:
   provider: bintray
   file: ./descriptor.json
