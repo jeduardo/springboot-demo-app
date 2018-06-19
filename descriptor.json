@@ -1,7 +1,7 @@
 {
     "package": {
-        "name": "springboot-demo-app",
-        "repo": "java",
+        "name": "entries",
+        "repo": "java/springboot-demo-app",
         "subject": "jeduardo",
         "issue_tracker_url": "https://github.com/jeduardo/springboot-demo-app/issues",
         "vcs_url": "https://github.com/jeduardo/springboot-demo-app.git",

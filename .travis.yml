@@ -4,8 +4,6 @@ jdk:
 - oraclejdk8
 
 before_deploy:
-  - mvn help:evaluate -Dexpression=project.version 2>/dev/null
-  - ls -l *.json
   - sed -i "s/@VERSION@/$(mvn help:evaluate -Dexpression=project.version 2>/dev/null | grep -v '\[')/g" descriptor.json
 
 deploy:
