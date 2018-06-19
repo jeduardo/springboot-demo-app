@@ -1,0 +1,26 @@
+{
+    "package": {
+        "name": "springboot-demo-app",
+        "repo": "java",
+        "subject": "jeduardo",
+        "issue_tracker_url": "https://github.com/jeduardo/springboot-demo-app/issues",
+        "vcs_url": "https://github.com/jeduardo/springboot-demo-app.git",
+        "licenses": ["MIT"],
+        "labels": ["springboot", "java", "demo", "sample"],
+        "public_download_numbers": true,
+        "public_stats": true
+    },
+
+    "version": {
+        "name": "@VERSION@",
+        "gpgSign": false
+    },
+
+    "files":
+        [
+          {"includePattern": "build/libs/(.*\\.jar)", "uploadPattern": "@VERSION@/$1"},
+          {"includePattern": "build/(.*\\.pom)",  "uploadPattern": "@VERSION@/$1"}
+        ],
+
+    "publish": true
+}
