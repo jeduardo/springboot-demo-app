@@ -183,8 +183,8 @@
 
     <distributionManagement>
         <repository>
-            <id>bintray-jeduardo-java</id>
-            <name>jeduardo-java</name>
+            <id>bintray</id>
+            <name>jeduardo</name>
             <url>https://api.bintray.com/maven/jeduardo/java/springboot-demo-app/;publish=1</url>
         </repository>
     </distributionManagement>
