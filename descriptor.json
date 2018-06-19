@@ -18,8 +18,8 @@
 
     "files":
         [
-          {"includePattern": "build/(.*\\.jar)", "uploadPattern": "@VERSION@/$1"},
-          {"includePattern": "build/(.*\\.pom)",  "uploadPattern": "@VERSION@/$1"}
+          {"includePattern": "target/(.*\\.jar)", "uploadPattern": "@VERSION@/$1"},
+          {"includePattern": "target/(.*\\.pom)",  "uploadPattern": "@VERSION@/$1"}
         ],
 
     "publish": true
