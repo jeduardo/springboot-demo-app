@@ -18,8 +18,8 @@
 
     "files":
         [
-          {"includePattern": "target/(.*\\.jar)", "uploadPattern": "@VERSION@/$1"},
-          {"includePattern": "target/(.*\\.pom)",  "uploadPattern": "@VERSION@/$1"}
+          {"includePattern": "target/(.*\\.jar)", "uploadPattern": "org/jeduardo/entries/@VERSION@/$1"},
+          {"includePattern": "(.*\\.pom)",  "uploadPattern": "org/jeduardo/entries/@VERSION@/$1"}
         ],
 
     "publish": true
