@@ -18,7 +18,7 @@
 
     "files":
         [
-          {"includePattern": "target/entries-@VERSION@.jar)", "uploadPattern": "org/jeduardo/entries/@VERSION@/$1"},
+          {"includePattern": "target/entries-@VERSION@.jar", "uploadPattern": "org/jeduardo/entries/@VERSION@/$1"},
           {"includePattern": "pom.xml",  "uploadPattern": "org/jeduardo/entries/@VERSION@/entries-@VERSION@.pom"}
         ],
 
