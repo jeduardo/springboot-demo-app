@@ -4,9 +4,12 @@ jdk:
 - oraclejdk8
 
 before_deploy:
-  - mvn help:evaluate -Dexpression=project.version 2>/dev/null
-  - ls -l *.json
-  - ls target/*
+  #  - mvn help:evaluate -Dexpression=project.version 2>/dev/null
+  #- ls -l *.json
+  #- ls target/*
+  # Create deployment package for runnable application
+  - mvn -DskipTests=true package
+  # Update application version in bintray deployment descriptor file
   - sed -i "s/@VERSION@/$(mvn help:evaluate -Dexpression=project.version 2>/dev/null | grep -v '\[')/g" descriptor.json
 
 deploy:
