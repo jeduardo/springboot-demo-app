@@ -192,6 +192,6 @@
 	    <connection>scm:git:git@github.com:jeduardo/springboot-demo-app.git</connection>
 	    <developerConnection>scm:git:git@github.com:jeduardo/springboot-demo-app.git</developerConnection>
 	  <tag>HEAD</tag>
-  </scm>
+    </scm>
 
 </project>
