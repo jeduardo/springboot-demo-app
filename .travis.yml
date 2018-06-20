@@ -4,6 +4,8 @@ jdk:
 - oraclejdk8
 
 before_deploy:
+  # Debug command to explore build directory inside travis
+  - ls -l *
   # Store project version for replacement trick
   - mvn help:evaluate -B -Dexpression=project.version 2>/dev/null | grep -v '\[' >version.txt
   - cat version.txt
