@@ -6,6 +6,7 @@ jdk:
 before_deploy:
   # Store project version for replacement trick
   - mvn help:evaluate -Dexpression=project.version 2>/dev/null | grep -v '\[' >version.txt
+  - cat version.txt
   # Create deployment package for runnable application
   - mvn -DskipTests=true package
   # Update application version in bintray deployment descriptor file
