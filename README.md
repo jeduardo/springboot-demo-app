@@ -109,10 +109,10 @@ The following endpoints are offered:
 	* accepts: all formats
 	* returns: application/json
 
-* /api/v1/status
+* /status
 	* parameters: none
 	* methods: GET
-	* description: return "OK" if the application is reachable
+	* description: return "Status: UP" if the application is reachable
 	* accepts: all formats
 	* returns: application/json
 

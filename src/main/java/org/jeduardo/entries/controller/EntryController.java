@@ -15,12 +15,6 @@ public class EntryController {
     @Autowired
     private EntryRepository entryRepository;
 
-    @RequestMapping(value = "/api/v1/status", method = RequestMethod.GET, produces = "application/json")
-    @ResponseBody
-    public String status() {
-        return "OK";
-    }
-
     @RequestMapping(value = "/api/v1/entries", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
     public Iterable<Entry> list() {
