@@ -116,6 +116,13 @@ The following endpoints are offered:
 	* accepts: all formats
 	* returns: application/json
 
+* /prometheus
+	* parameters: none
+	* methods: GET
+	* description: return metrics for Prometheus to scrape
+	* accepts: all formats
+	* returns: text/plain
+
 # License
 
 This code is licensed under the MIT License.
