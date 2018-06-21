@@ -1,5 +1,7 @@
 # Springboot demo app
 
+[![Build Status](https://www.travis-ci.org/jeduardo/springboot-demo-app.svg?branch=master)](https://www.travis-ci.org/jeduardo/springboot-demo-app)
+
 This is a small demo app created in Spring boot created to exercise automated deployments
 of non-trivial applications. It is a Java version of the [flask-demo-app](https://github.com/jeduardo/flask-demo-app).
 
