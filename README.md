@@ -111,14 +111,14 @@ The following endpoints are offered:
 	* accepts: all formats
 	* returns: application/json
 
-* /status
+* /actuator/health
 	* parameters: none
 	* methods: GET
 	* description: return "Status: UP" if the application is reachable
 	* accepts: all formats
 	* returns: application/json
 
-* /prometheus
+* /actuator/prometheus
 	* parameters: none
 	* methods: GET
 	* description: return metrics for Prometheus to scrape
