@@ -1,9 +1,9 @@
 package org.jeduardo.entries.filter;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
-import org.apache.log4j.MDC;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.ThreadContext;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.*;
@@ -36,11 +36,11 @@ public class RequestIdFilter implements Filter {
                 LOGGER.debug("Request ID not presented, creating it on the fly");
                 requestId = UUID.randomUUID().toString();
             }
-            MDC.put("requestId", requestId);
+            ThreadContext.put("requestId", requestId);
             httpResponse.addHeader(X_REQUEST_ID, requestId);
             chain.doFilter(request, response);
         } finally {
-            MDC.clear();
+            ThreadContext.clearAll();
         }
     }
 

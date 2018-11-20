@@ -1,7 +1,8 @@
 package org.jeduardo.entries.controller;
 
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jeduardo.entries.data.EntryRepository;
 import org.jeduardo.entries.exception.ResourceNotFoundException;
 import org.jeduardo.entries.model.Entry;
@@ -24,7 +25,7 @@ public class EntryController {
     @RequestMapping(value = "/api/v1/entries/{id}", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
     public Entry list(@PathVariable("id") int id) {
-        Entry entry = entryRepository.findOne(id);
+        Entry entry = entryRepository.findById(id).orElse(null);
         if (entry != null) {
             LOGGER.info(String.format("Entry found: %s", entry));
             return entry;
@@ -46,7 +47,7 @@ public class EntryController {
     @RequestMapping(value = "/api/v1/entries/{id}", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
     @ResponseBody
     public Entry update(@PathVariable("id") int id, @RequestBody Entry entry) {
-        Entry targetEntry = entryRepository.findOne(id);
+        Entry targetEntry = entryRepository.findById(id).orElse(null);
         if (targetEntry != null) {
             LOGGER.info(String.format("Entry found: %s", entry));
             targetEntry.setContent(entry.getContent());
@@ -61,7 +62,7 @@ public class EntryController {
     @RequestMapping(value = "/api/v1/entries/{id}", method = RequestMethod.DELETE, produces = "application/json")
     @ResponseBody
     public Entry delete(@PathVariable("id") int id) {
-        Entry targetEntry = entryRepository.findOne(id);
+        Entry targetEntry = entryRepository.findById(id).orElse(null);
         if (targetEntry != null) {
             entryRepository.delete(targetEntry);
             return targetEntry;
