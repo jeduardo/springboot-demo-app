@@ -4,7 +4,7 @@
 
     <groupId>org.jeduardo</groupId>
     <artifactId>entries</artifactId>
-    <version>1.0.3</version>
+    <version>1.0.4</version>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -21,7 +21,6 @@
         <database.url>${env.APP_DATABASE_URL}</database.url>
         <database.user>${env.APP_DATABASE_USER}</database.user>
         <database.password>${env.APP_DATABASE_PASSWORD}</database.password>
-        <prom.version>0.0.21</prom.version>
     </properties>
 
     <dependencies>
@@ -40,6 +39,14 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-vault-config</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-vault-config-databases</artifactId>
         </dependency>
         <!-- Log4j2 dependency -->
         <dependency>
@@ -162,7 +169,7 @@
                     </locations>
                     <url>${database.url}</url>
                     <user>${database.user}</user>
-                    <password>${databese.password}</password>
+                    <password>${database.password}</password>
                 </configuration>
                 <dependencies>
                     <dependency>
@@ -206,6 +213,18 @@
             <url>https://api.bintray.com/maven/jeduardo/java/springboot-demo-app/;publish=1</url>
         </repository>
     </distributionManagement>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-vault-dependencies</artifactId>
+                <version>2.0.2.RELEASE</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
 	<scm>
 	    <url>https://github.com/jeduardo/springboot-demo-app</url>
