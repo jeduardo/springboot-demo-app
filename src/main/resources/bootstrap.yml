@@ -27,13 +27,15 @@ spring:
                 backend: database
                 enabled: true
                 role: my-role
-            token: 26nkeNOstr8sCXGbikuSLMGP
+            token: devtoken
             uri: http://127.0.0.1:8200/
     datasource:
         url: jdbc:postgresql://127.0.0.1:5432/jeduardo
     flyway:
         enabled: ${APP_DATABASE_MIGRATION:true}
         locations: classpath:db/migration/common,classpath:db/migration/specific/{vendor}
+        user: jeduardo
+        password: jeduardo
     jpa:
         hibernate:
             ddl-auto: ${APP_DATABASE_SCHEMA:validate}
