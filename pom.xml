@@ -16,7 +16,7 @@
         <java.version>15</java.version>
         <maven.compiler.source>15</maven.compiler.source>
         <maven.compiler.target>15</maven.compiler.target>
-        <flyway.version>8.5.12</flyway.version>
+        <flyway.version>11.10.1</flyway.version>
         <postgres.driver.version>42.7.7</postgres.driver.version>
         <mysql.driver.version>8.0.28</mysql.driver.version>
         <mariadb.driver.version>3.5.4</mariadb.driver.version>
