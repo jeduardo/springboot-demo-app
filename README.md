@@ -1,17 +1,16 @@
 # Springboot demo app
 
-[![Build Status](https://www.travis-ci.org/jeduardo/springboot-demo-app.svg?branch=master)](https://www.travis-ci.org/jeduardo/springboot-demo-app)
+[![Tests](https://github.com/jeduardo/springboot-demo-app/actions/workflows/test.yml/badge.svg)](https://github.com/jeduardo/springboot-demo-app/actions/workflows/test.yml)
 
 This is a small demo app created in Spring boot created to exercise automated deployments
 of non-trivial applications. It is a Java version of the [flask-demo-app](https://github.com/jeduardo/flask-demo-app).
 
-* Configuration based on environment variables
-* Database-backed entries
-* JSON API
-* Stateless
-* Support for X-Request-ID header for request tracking
-* Logging with JSON to stdout
-
+- Configuration based on environment variables
+- Database-backed entries
+- JSON API
+- Stateless
+- Support for X-Request-ID header for request tracking
+- Logging with JSON to stdout
 
 ## Model
 
@@ -19,34 +18,34 @@ The only model defined for the application is the model of an `Entry`.
 
 An `Entry` is composed by the following fields:
 
-* id: unique identifier for an entry. This field is generated automatically
-and	cannot be modified.
-* description: a description for the `Entry`.
-* comment: a comment over the `Entry`.
+- id: unique identifier for an entry. This field is generated automatically
+  and cannot be modified.
+- description: a description for the `Entry`.
+- comment: a comment over the `Entry`.
 
 ## Configuration
 
 The following environment variables can be configured:
 
-* APP_DATABASE_URL (mandatory): points to the backing database
+- APP_DATABASE_URL (mandatory): points to the backing database
 
-* APP_DATABASE_USER (mandatory): holds the database user
+- APP_DATABASE_USER (mandatory): holds the database user
 
-* APP_DATABASE_PASSWORD (mandatory): holds the database password
+- APP_DATABASE_PASSWORD (mandatory): holds the database password
 
-* APP_DATABASE_SCHEMA (mandatory): specify what the persistence layer should do with the schema during the boot according to the options:
-    * none: nothing is done
-    * validate: schema is validated during initialization time
-    * create: schema is reset during initialization time
-    * update: schema is updated during initialization time
+- APP_DATABASE_SCHEMA (mandatory): specify what the persistence layer should do with the schema during the boot according to the options:
 
-* APP_LOG_LEVEL (optional): allows configuring the application log level. If it is
-not specified, the default log level will be INFO.
+  - none: nothing is done
+  - validate: schema is validated during initialization time
+  - create: schema is reset during initialization time
+  - update: schema is updated during initialization time
 
-* APP_FLYWAY_ENABLED (optional): whether Flyway-based migrations should be executed during boot. If left out, it will be enabled by default.
+- APP_LOG_LEVEL (optional): allows configuring the application log level. If it is
+  not specified, the default log level will be INFO.
 
-*Note: If no database configuration is specified, the application will start on a single-shot execution mode using a memory-backed database that will be erased when it is stopped.*
+- APP_FLYWAY_ENABLED (optional): whether Flyway-based migrations should be executed during boot. If left out, it will be enabled by default.
 
+_Note: If no database configuration is specified, the application will start on a single-shot execution mode using a memory-backed database that will be erased when it is stopped._
 
 ## Database migration
 
@@ -78,52 +77,56 @@ $ java -jar target/entries-X.X.X.jar
 
 On the first execution, create the schema by also exporting `APP_DATABASE_SCHEMA=create`.
 
-
 ## API
 
 The following endpoints are offered:
 
-* /api/v1/entries
-	* parameters: none
-	* methods: GET
-	* description: list all entries in the database
-	* accepts: all formats
-	* returns: application/json
+- /api/v1/entries
 
-* /api/v1/entries
-	* parameters: JSON object representing an `Entry`
-	* methods: POST
-	* description: create a new entry
-	* accepts: application/json
-	* returns: application/json
+  - parameters: none
+  - methods: GET
+  - description: list all entries in the database
+  - accepts: all formats
+  - returns: application/json
 
-* /api/v1/entries/<id>
-	* parameters: JSON object representing an `Entry`
-	* methods: POST
-	* description: update an existing `Entry`
-	* accepts: application/json
-	* returns: application/json
+- /api/v1/entries
 
-* /api/v1/entries/<id>
-	* parameters: entry id
-	* methods: DELETE
-	* description: remove an entry from the database
-	* accepts: all formats
-	* returns: application/json
+  - parameters: JSON object representing an `Entry`
+  - methods: POST
+  - description: create a new entry
+  - accepts: application/json
+  - returns: application/json
 
-* /actuator/health
-	* parameters: none
-	* methods: GET
-	* description: return "Status: UP" if the application is reachable
-	* accepts: all formats
-	* returns: application/json
+- /api/v1/entries/<id>
 
-* /actuator/prometheus
-	* parameters: none
-	* methods: GET
-	* description: return metrics for Prometheus to scrape
-	* accepts: all formats
-	* returns: text/plain
+  - parameters: JSON object representing an `Entry`
+  - methods: POST
+  - description: update an existing `Entry`
+  - accepts: application/json
+  - returns: application/json
+
+- /api/v1/entries/<id>
+
+  - parameters: entry id
+  - methods: DELETE
+  - description: remove an entry from the database
+  - accepts: all formats
+  - returns: application/json
+
+- /actuator/health
+
+  - parameters: none
+  - methods: GET
+  - description: return "Status: UP" if the application is reachable
+  - accepts: all formats
+  - returns: application/json
+
+- /actuator/prometheus
+  - parameters: none
+  - methods: GET
+  - description: return metrics for Prometheus to scrape
+  - accepts: all formats
+  - returns: text/plain
 
 # License
 
