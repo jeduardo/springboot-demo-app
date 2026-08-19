@@ -7,19 +7,18 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Map;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.core.Appender;
 import org.apache.logging.log4j.core.Layout;
 import org.apache.logging.log4j.core.LogEvent;
 import org.apache.logging.log4j.core.LoggerContext;
-import org.apache.logging.log4j.core.config.Configurator;
 import org.apache.logging.log4j.core.impl.ContextDataFactory;
 import org.apache.logging.log4j.core.impl.Log4jLogEvent;
 import org.apache.logging.log4j.layout.template.json.JsonTemplateLayout;
 import org.apache.logging.log4j.message.SimpleMessage;
 import org.junit.jupiter.api.Test;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.ObjectMapper;
 
 class ProductionLog4j2ConfigurationTest {
 
@@ -30,10 +29,11 @@ class ProductionLog4j2ConfigurationTest {
         Path configurationFile = Path.of("src/main/resources/log4j2.xml").toAbsolutePath();
         assertThat(Files.readString(configurationFile)).doesNotContain("EventTemplateAdditionalField");
 
-        LoggerContext context = Configurator.initialize(
+        LoggerContext context = new LoggerContext(
                 "production-log4j2-test",
                 null,
                 configurationFile.toUri());
+        context.start();
         try {
             Appender appender = context.getConfiguration().getAppender("json");
             Layout<? extends Serializable> layout = appender.getLayout();
