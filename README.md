@@ -8,7 +8,6 @@ of non-trivial applications. It is a Java version of the [flask-demo-app](https:
 - Configuration based on environment variables
 - Database-backed entries
 - JSON API
-- Stateless
 - Support for X-Request-ID header for request tracking
 - Logging with JSON to stdout
 
