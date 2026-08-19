@@ -1,5 +1,11 @@
 package org.jeduardo.entries.controller;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.CoreMatchers.is;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
+import com.jayway.jsonpath.JsonPath;
 import org.jeduardo.entries.Application;
 import org.jeduardo.entries.data.EntryRepository;
 import org.jeduardo.entries.model.Entry;
@@ -11,10 +17,7 @@ import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-
-import static org.hamcrest.CoreMatchers.is;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import org.springframework.test.web.servlet.MvcResult;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = Application.class)
 @AutoConfigureMockMvc
@@ -82,6 +85,56 @@ public class EntryControllerTest {
                                 .andExpect(jsonPath("$.content", is("Content 1")))
                                 .andExpect(jsonPath("$.description", is("Description 1")));
 
+        }
+
+        @Test
+        public void createsEntryWhenRequestOmitsId() throws Exception {
+                MvcResult result = mvc.perform(post("/api/v1/entries")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content("""
+                                                {"content":"created","description":"first"}
+                                                """))
+                                .andExpect(status().isOk())
+                                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                                .andExpect(jsonPath("$.id").isNumber())
+                                .andExpect(jsonPath("$.content", is("created")))
+                                .andExpect(jsonPath("$.description", is("first")))
+                                .andReturn();
+
+                Number id = JsonPath.read(result.getResponse().getContentAsString(), "$.id");
+                assertThat(repository.findById(id.longValue()))
+                                .hasValueSatisfying(entry -> {
+                                        assertThat(entry.getContent()).isEqualTo("created");
+                                        assertThat(entry.getDescription()).isEqualTo("first");
+                                });
+        }
+
+        @Test
+        public void updatesExistingEntryWhenRequestOmitsId() throws Exception {
+                Entry existing = new Entry();
+                existing.setContent("before");
+                existing.setDescription("original");
+                existing = repository.save(existing);
+
+                MvcResult result = mvc.perform(post("/api/v1/entries/" + existing.getId())
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content("""
+                                                {"content":"updated","description":"second"}
+                                                """))
+                                .andExpect(status().isOk())
+                                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                                .andExpect(jsonPath("$.id").isNumber())
+                                .andExpect(jsonPath("$.content", is("updated")))
+                                .andExpect(jsonPath("$.description", is("second")))
+                                .andReturn();
+
+                Number returnedId = JsonPath.read(result.getResponse().getContentAsString(), "$.id");
+                assertThat(returnedId.longValue()).isEqualTo(existing.getId());
+                assertThat(repository.findById(existing.getId()))
+                                .hasValueSatisfying(entry -> {
+                                        assertThat(entry.getContent()).isEqualTo("updated");
+                                        assertThat(entry.getDescription()).isEqualTo("second");
+                                });
         }
 
         @Test
