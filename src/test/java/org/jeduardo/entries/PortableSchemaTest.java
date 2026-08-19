@@ -29,9 +29,9 @@ class PortableSchemaTest {
                 SELECT next_id
                 FROM entry_id_generator
                 WHERE sequence_name = 'entries'
-                """, Long.class)).isGreaterThan(0L);
+                """, Long.class)).isZero();
 
         Entry entry = repository.save(new Entry());
-        assertThat(entry.getId()).isPositive();
+        assertThat(entry.getId()).isEqualTo(1L);
     }
 }

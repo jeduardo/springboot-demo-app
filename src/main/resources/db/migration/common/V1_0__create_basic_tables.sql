@@ -9,4 +9,4 @@ CREATE TABLE entry_id_generator (
     next_id BIGINT NOT NULL
 );
 
-INSERT INTO entry_id_generator (sequence_name, next_id) VALUES ('entries', 1);
+INSERT INTO entry_id_generator (sequence_name, next_id) VALUES ('entries', 0);
