@@ -92,14 +92,6 @@ Log4j2 continues to emit JSON to standard output with the request ID included.
 The logging configuration and dependencies must agree on the selected appender
 name and include the JSON template layout implementation when required.
 
-## Continuous Integration
-
-Run the test workflow for pull requests targeting `main` and for pushes to
-`main`. Do not run the workflow for ordinary feature-branch pushes, because an
-open pull request already emits a `pull_request` `synchronize` event for the
-same commit. This preserves validation for pull requests, direct pushes, and
-merged commits without executing the same feature-branch revision twice.
-
 ## Dependabot Maintenance
 
 Update `.github/dependabot.yml` to group compatible Maven production dependency
