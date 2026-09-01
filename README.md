@@ -8,7 +8,6 @@ of non-trivial applications. It is a Java version of the [flask-demo-app](https:
 - Configuration based on environment variables
 - Database-backed entries
 - JSON API
-- Stateless
 - Support for X-Request-ID header for request tracking
 - Logging with JSON to stdout
 
@@ -32,13 +31,6 @@ The following environment variables can be configured:
 - APP_DATABASE_USER (mandatory): holds the database user
 
 - APP_DATABASE_PASSWORD (mandatory): holds the database password
-
-- APP_DATABASE_SCHEMA (mandatory): specify what the persistence layer should do with the schema during the boot according to the options:
-
-  - none: nothing is done
-  - validate: schema is validated during initialization time
-  - create: schema is reset during initialization time
-  - update: schema is updated during initialization time
 
 - APP_LOG_LEVEL (optional): allows configuring the application log level. If it is
   not specified, the default log level will be INFO.
@@ -74,8 +66,6 @@ $ export APP_DATABASE_PASSWORD=fc06ba6b5f75e0c1ab303eb26a1332315ee53c0314b9ff34d
 $ export APP_DATABASE_URL='jdbc:postgresql://ec2-54-247-189-64.eu-west-1.compute.amazonaws.com:5432/da8s86ph6ufuq7?ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory'
 $ java -jar target/entries-X.X.X.jar
 ```
-
-On the first execution, create the schema by also exporting `APP_DATABASE_SCHEMA=create`.
 
 ## API
 

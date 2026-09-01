@@ -1,15 +1,17 @@
 package org.jeduardo.entries.filter;
 
-import org.apache.commons.lang3.StringUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.ThreadContext;
+import jakarta.servlet.Filter;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import org.slf4j.MDC;
 import org.springframework.stereotype.Component;
 
-import javax.servlet.*;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Optional;
 import java.util.UUID;
 
 /**
@@ -19,33 +21,19 @@ import java.util.UUID;
 @Component
 public class RequestIdFilter implements Filter {
     private static final String X_REQUEST_ID = "X-Request-Id";
-    private static final Logger LOGGER = LogManager.getLogger(RequestIdFilter.class);
+    private static final String REQUEST_ID = "requestId";
 
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
-
-    }
-
-    @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        try {
-            HttpServletRequest httpRequest = (HttpServletRequest) request;
-            HttpServletResponse httpResponse = (HttpServletResponse) response;
-            String requestId = httpRequest.getHeader(X_REQUEST_ID);
-            if (StringUtils.isEmpty(requestId)) {
-                LOGGER.debug("Request ID not presented, creating it on the fly");
-                requestId = UUID.randomUUID().toString();
-            }
-            ThreadContext.put("requestId", requestId);
-            httpResponse.addHeader(X_REQUEST_ID, requestId);
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+            throws IOException, ServletException {
+        var http = (HttpServletRequest) request;
+        String id = Optional.ofNullable(http.getHeader(X_REQUEST_ID))
+                .filter(s -> !s.isBlank())
+                .orElseGet(() -> UUID.randomUUID().toString());
+        HttpServletResponse httpResponse = (HttpServletResponse) response;
+        httpResponse.setHeader(X_REQUEST_ID, id);
+        try (MDC.MDCCloseable ignored = MDC.putCloseable(REQUEST_ID, id)) {
             chain.doFilter(request, response);
-        } finally {
-            ThreadContext.clearAll();
         }
-    }
-
-    @Override
-    public void destroy() {
-
     }
 }

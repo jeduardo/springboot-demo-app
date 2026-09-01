@@ -2,28 +2,40 @@ package org.jeduardo.entries.model;
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
-import javax.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.persistence.TableGenerator;
 
 @Entity
 @Table(name = "entries")
 public class Entry {
     @Id
-    @SequenceGenerator(name="entries_id_seq", sequenceName="entries_id_seq", allocationSize=1, initialValue=1)
-    @GeneratedValue(generator="entries_id_seq")
-    private int id = 0;
+    @TableGenerator(
+            name = "entry_id_generator",
+            table = "entry_id_generator",
+            pkColumnName = "sequence_name",
+            valueColumnName = "next_id",
+            pkColumnValue = "entries",
+            allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "entry_id_generator")
+    private Long id;
     private String content = null;
     private String description = null;
 
     // Required for deserialization of incoming parameters
-    public Entry() {}
+    public Entry() {
+    }
 
-    public Entry(int id, String content, String description) {
+    public Entry(Long id, String content, String description) {
         this.id = id;
         this.content = content;
         this.description = description;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
@@ -35,7 +47,7 @@ public class Entry {
         return description;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
